@@ -4,161 +4,246 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Coercive Control</title>
-    <!-- Import Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
-    <!-- Import Inter font --><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Import Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Import Inter font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Apply the Inter font family */
         body {
             font-family: 'Inter', sans-serif;
         }
-        /* Custom transition for the description toggle */
-        .description {
-            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
-            max-height: 0;
-            opacity: 0;
-            overflow: hidden;
+
+        /* --- FLIP CARD CSS --- */
+        .flip-card {
+            perspective: 1000px; /* Essential for 3D effect */
         }
-        .description.open {
-            max-height: 500px; /* Set to a reasonable max height */
-            opacity: 1;
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        /* Class added via JS to trigger flip */
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden; /* Safari */
+            backface-visibility: hidden;
+            border-radius: 0.75rem; /* tailwind rounded-xl */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .flip-card-front {
+            background: linear-gradient(135deg, #F3EAF9 0%, #E6D6F0 100%);
+            color: #413659;
+            border: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+        
+        /* Hover effect on front only */
+        .flip-card:hover .flip-card-front {
+            border-color: #C6B4D9;
+        }
+
+        .flip-card-back {
+            background-color: white;
+            color: #413659;
+            transform: rotateY(180deg);
+            border: 2px solid #9C7F9D;
+        }
+
+        /* Pulse animation for instructions */
+        @keyframes pulse-gentle {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(5px); }
+        }
+        .animate-pulse-arrow {
+            animation: pulse-gentle 1.5s infinite ease-in-out;
+        }
+
+        /* Hide scrollbar within cards */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
     </style>
 </head>
-<body style="background-color: #F2F2F2; color: #413659;">
+<body class="bg-[#F6F5F8] text-[#413659] h-screen w-screen overflow-hidden flex flex-col md:flex-row p-4 md:p-6 gap-4">
 
-    <!-- Main Container --><div class="max-w-5xl mx-auto p-4 md:p-8">
-
-        <!-- Header Section --><header class="mb-8 p-6 rounded-lg shadow-lg" style="background-color: #513873;">
-            <h1 class="text-3xl md:text-5xl font-bold text-center border-4 rounded-md py-4" style="color: #C6B4D9; border-color: #C6B4D9;">
-                COERCIVE CONTROL
+    <!-- LEFT PANEL: Header & Intro (Fixed Width on Desktop) -->
+    <section class="flex-none md:w-1/3 lg:w-1/4 flex flex-col justify-center space-y-4 md:space-y-6 md:pr-4 relative z-10">
+        <header class="p-5 rounded-lg shadow-lg bg-[#513873] text-[#C6B4D9]">
+            <h1 class="text-2xl md:text-4xl font-bold text-center border-2 border-[#C6B4D9] rounded py-2 leading-tight">
+                COERCIVE<br>CONTROL
             </h1>
         </header>
 
-        <!-- Introduction Section --><section class="my-8 space-y-6">
-            <p class="text-xl md:text-2xl text-center font-semibold" style="color: #513873;">
-                Coercive Control is not a distinct form of domestic and family violence; it is an underpinning dynamic of it.
+        <div class="space-y-4 text-center md:text-left overflow-y-auto max-h-[40vh] md:max-h-full flex flex-col justify-center h-full">
+            <p class="text-sm md:text-base font-bold text-[#513873]">
+                Not a distinct form of violence, but an underpinning dynamic.
             </p>
-            <p class="text-lg md:text-xl text-center">
-                It describes a <span class="font-bold">pattern of abusive behaviours</span> used to control, manipulate and dominate.
+            <p class="text-xs md:text-sm">
+                A <span class="font-bold">pattern of behaviours</span> used to control, manipulate and dominate.
             </p>
             
-            <!-- Impact Block --><div class="bg-white p-6 rounded-lg shadow-md" style="border-left: 5px solid #9C7F9D;">
-                <p class="text-lg">
-                    These tactics instill <span class="font-bold" style="color: #513873;">fear</span> in people who are abused, wear down their <span class="font-bold" style="color: #513873;">sense of identity</span> and <span class="font-bold" style="color: #513873;">independence</span>, and entrap them by disabling them from accessing <span class="font-bold" style="color: #513873;">safety and support</span>.
+            <div class="bg-white p-3 rounded border-l-4 border-[#9C7F9D] shadow-sm mt-2">
+                <p class="text-xs md:text-sm leading-relaxed">
+                    These tactics instill <span class="font-bold text-[#513873]">fear</span>, wear down <span class="font-bold text-[#513873]">identity</span>, and disable access to <span class="font-bold text-[#513873]">safety</span>.
                 </p>
             </div>
-        </section>
-
-        <!-- Interactive Grid Section --><section class="my-12">
-            <h2 class="text-2xl font-bold text-center mb-6" style="color: #413659;">Tactics of Coercive Control</h2>
-            <p class="text-center text-lg mb-8" style="color: #9C7F9D;">Select on each tactic to learn more.</p>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-                <!-- 1. Physical Violence --><div class="bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-xl" onclick="toggleCard(this)">
-                    <div class="p-4 flex items-center space-x-4" style="background-color: #C6B4D9;">
-                        <!-- Custom Icon for Physical Violence (Closed Fist) -->
-                        <img src="Physical Violence.png" alt="Physical Violence Icon" class="h-8 w-8 object-contain">
-                        <h3 class="text-xl font-semibold" style="color: #413659;">Physical Violence</h3>
-                    </div>
-                    <div class="description p-4 border-t" style="border-color: #e0e0e0;">
-                        <p>This can include hitting, punching, pushing, restraining, or any other form of physical harm. It also includes threatening to cause harm.</p>
-                    </div>
+            <!-- Instructions Section -->
+            <div class="mt-4 flex items-center justify-center md:justify-start space-x-2 text-[#513873]">
+                <div class="animate-pulse-arrow bg-[#C6B4D9] rounded-full p-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#513873]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
                 </div>
-
-                <!-- 2. Making Threats --><div class="bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-xl" onclick="toggleCard(this)">
-                    <div class="p-4 flex items-center space-x-4" style="background-color: #C6B4D9;">
-                        <!-- Icon: Exclamation Triangle --><svg class="h-8 w-8" style="color: #513873;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-                        </svg>
-                        <h3 class="text-xl font-semibold" style="color: #413659;">Making Threats</h3>
-                    </div>
-                    <div class="description p-4 border-t" style="border-color: #e0e0e0;">
-                        <p>Using intimidation, threats of violence, or threats to harm oneself, children, or pets to instill fear and ensure compliance.</p>
-                    </div>
-                </div>
-
-                <!-- 3. Social Isolation --><div class="bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-xl" onclick="toggleCard(this)">
-                    <div class="p-4 flex items-center space-x-4" style="background-color: #C6B4D9;">
-                        <!-- Icon: Users --><svg class="h-8 w-8" style="color: #513873;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                        </svg>
-                        <h3 class="text-xl font-semibold" style="color: #413659;">Social Isolation</h3>
-                    </div>
-                    <div class="description p-4 border-t" style="border-color: #e0e0e0;">
-                        <p>Preventing contact with friends, family, or support networks. This can involve monitoring calls, checking messages, or making it difficult to leave the house.</p>
-                    </div>
-                </div>
-
-                <!-- 4. Controlling Choices --><div class="bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-xl" onclick="toggleCard(this)">
-                    <div class="p-4 flex items-center space-x-4" style="background-color: #C6B4D9;">
-                        <!-- Icon: Lock Closed --><svg class="h-8 w-8" style="color: #513873;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 00-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-                        </svg>
-                        <h3 class="text-xl font-semibold" style="color: #413659;">Controlling Choices</h3>
-                    </div>
-                    <div class="description p-4 border-t" style="border-color: #e0e0e0;">
-                        <p>Dictating everyday decisions, such as what to wear, where to go, who to see, or what to study/work. This removes a person's autonomy.</p>
-                    </div>
-                </div>
-
-                <!-- 5. Monitoring & Stalking --><div class="bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-xl" onclick="toggleCard(this)">
-                    <div class="p-4 flex items-center space-x-4" style="background-color: #C6B4D9;">
-                        <!-- Icon: Eye --><svg class="h-8 w-8" style="color: #513873;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                        <h3 class="text-xl font-semibold" style="color: #413659;">Monitoring & Stalking</h3>
-                    </div>
-                    <div class="description p-4 border-t" style="border-color: #e0e0e0;">
-                        <p>Using technology (like trackers or apps) or in-person surveillance to track movements, conversations, and online activity without consent.</p>
-                    </div>
-                </div>
-
-                <!-- 6. Financial Control --><div class="bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-xl" onclick="toggleCard(this)">
-                    <div class="p-4 flex items-center space-x-4" style="background-color: #C6B4D9;">
-                        <!-- Custom Icon for Financial Control --><div class="h-8 w-8 flex items-center justify-center">
-                            <span class="text-3xl font-bold" style="color: #513873;">$</span>
-                        </div>
-                        <h3 class="text-xl font-semibold" style="color: #413659;">Financial Control</h3>
-                    </div>
-                    <div class="description p-4 border-t" style="border-color: #e0e0e0;">
-                        <p>Restricting access to money, controlling bank accounts, preventing work or education, or forcing someone to account for every cent spent.</p>
-                    </div>
-                </div>
-
+                <p class="text-lg font-bold uppercase tracking-wider">
+                    Select a tile to flip
+                </p>
             </div>
-        </section>
-        
-        <!-- Support Section Removed -->
+        </div>
+    </section>
 
-    </div>
+    <!-- RIGHT PANEL: The Grid (Fills remaining space) -->
+    <section class="flex-1 h-full perspective-container">
+        <div class="grid grid-cols-2 md:grid-cols-3 grid-rows-3 md:grid-rows-2 gap-4 h-full">
+
+            <!-- 1. Physical Violence -->
+            <div class="flip-card cursor-pointer group" onclick="toggleFlip(this)">
+                <div class="flip-card-inner">
+                    <!-- FRONT -->
+                    <div class="flip-card-front">
+                        <svg class="h-10 w-10 md:h-16 md:w-16 mb-3 text-[#513873]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                        <h3 class="text-sm md:text-lg font-bold leading-tight uppercase tracking-wide text-[#513873]">Physical<br>Violence</h3>
+                    </div>
+                    <!-- BACK -->
+                    <div class="flip-card-back">
+                        <h3 class="text-[#513873] font-bold mb-3 text-sm uppercase tracking-wide border-b-2 border-[#C6B4D9] pb-1 w-full text-center">Physical Violence</h3>
+                        <p class="text-sm md:text-base text-gray-700 overflow-y-auto no-scrollbar">Hitting, punching, pushing, restraining, or threatening harm to cause fear.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Making Threats -->
+            <div class="flip-card cursor-pointer group" onclick="toggleFlip(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <svg class="h-10 w-10 md:h-16 md:w-16 mb-3 text-[#513873]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                        </svg>
+                        <h3 class="text-sm md:text-lg font-bold leading-tight uppercase tracking-wide text-[#513873]">Making<br>Threats</h3>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3 class="text-[#513873] font-bold mb-3 text-sm uppercase tracking-wide border-b-2 border-[#C6B4D9] pb-1 w-full text-center">Making Threats</h3>
+                        <p class="text-sm md:text-base text-gray-700 overflow-y-auto no-scrollbar">Intimidation, threats of violence, or threatening to harm oneself, children, or pets.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Social Isolation -->
+            <div class="flip-card cursor-pointer group" onclick="toggleFlip(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <svg class="h-10 w-10 md:h-16 md:w-16 mb-3 text-[#513873]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                        </svg>
+                        <h3 class="text-sm md:text-lg font-bold leading-tight uppercase tracking-wide text-[#513873]">Social<br>Isolation</h3>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3 class="text-[#513873] font-bold mb-3 text-sm uppercase tracking-wide border-b-2 border-[#C6B4D9] pb-1 w-full text-center">Social Isolation</h3>
+                        <p class="text-sm md:text-base text-gray-700 overflow-y-auto no-scrollbar">Preventing contact with friends/family. Monitoring calls or making it difficult to leave the house.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Controlling Choices -->
+            <div class="flip-card cursor-pointer group" onclick="toggleFlip(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <svg class="h-10 w-10 md:h-16 md:w-16 mb-3 text-[#513873]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                        <h3 class="text-sm md:text-lg font-bold leading-tight uppercase tracking-wide text-[#513873]">Controlling<br>Choices</h3>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3 class="text-[#513873] font-bold mb-3 text-sm uppercase tracking-wide border-b-2 border-[#C6B4D9] pb-1 w-full text-center">Controlling Choices</h3>
+                        <p class="text-sm md:text-base text-gray-700 overflow-y-auto no-scrollbar">Dictating everyday decisions: what to wear, where to go, who to see. Removing autonomy.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Monitoring & Stalking -->
+            <div class="flip-card cursor-pointer group" onclick="toggleFlip(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <svg class="h-10 w-10 md:h-16 md:w-16 mb-3 text-[#513873]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                        <h3 class="text-sm md:text-lg font-bold leading-tight uppercase tracking-wide text-[#513873]">Monitoring<br>& Stalking</h3>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3 class="text-[#513873] font-bold mb-3 text-sm uppercase tracking-wide border-b-2 border-[#C6B4D9] pb-1 w-full text-center">Monitoring & Stalking</h3>
+                        <p class="text-sm md:text-base text-gray-700 overflow-y-auto no-scrollbar">Using technology (trackers/apps) or in-person surveillance to track movements without consent.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. Financial Control -->
+            <div class="flip-card cursor-pointer group" onclick="toggleFlip(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="h-10 w-10 md:h-16 md:w-16 mb-3 flex items-center justify-center border-2 border-[#513873] rounded-full">
+                            <span class="text-xl md:text-3xl font-bold text-[#513873]">$</span>
+                        </div>
+                        <h3 class="text-sm md:text-lg font-bold leading-tight uppercase tracking-wide text-[#513873]">Financial<br>Control</h3>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3 class="text-[#513873] font-bold mb-3 text-sm uppercase tracking-wide border-b-2 border-[#C6B4D9] pb-1 w-full text-center">Financial Control</h3>
+                        <p class="text-sm md:text-base text-gray-700 overflow-y-auto no-scrollbar">Restricting access to money, controlling accounts, preventing work, or demanding accounting of pennies.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
 
     <script>
-        // JavaScript to toggle the description visibility
-        function toggleCard(cardElement) {
-            const description = cardElement.querySelector('.description');
-            const isOpen = description.classList.contains('open');
+        function toggleFlip(element) {
+            // Check if this card is already flipped
+            const isFlipped = element.classList.contains('flipped');
 
-            // Optional: Close all other open cards first for an accordion-style effect
-            // document.querySelectorAll('.description.open').forEach(openDesc => {
-            //     if (openDesc !== description) {
-            //         openDesc.classList.remove('open');
-            //         openDesc.closest('.bg-white').style.boxShadow = '';
-            //     }
-            // });
+            // Reset all cards (close others)
+            document.querySelectorAll('.flip-card').forEach(card => {
+                card.classList.remove('flipped');
+            });
 
-            // Toggle the current card
-            description.classList.toggle('open');
-            
-            // Add a visual indicator (like a shadow) to the active card
-            if (description.classList.contains('open')) {
-                cardElement.style.boxShadow = '0 0 0 3px #9C7F9D'; // Active shadow
-            } else {
-                cardElement.style.boxShadow = ''; // Remove active shadow
+            // If it wasn't flipped before, flip it now
+            if (!isFlipped) {
+                element.classList.add('flipped');
             }
         }
     </script>
-
 </body>
 </html>
