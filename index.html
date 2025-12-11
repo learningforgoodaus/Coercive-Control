@@ -87,45 +87,51 @@
 </head>
 <body class="bg-[#F6F5F8] text-[#413659] h-screen w-screen overflow-hidden flex flex-col md:flex-row p-4 md:p-6 gap-4">
 
-    <!-- LEFT PANEL: Header & Intro (Fixed Width on Desktop) -->
-    <section class="flex-none md:w-1/3 lg:w-1/4 flex flex-col justify-center space-y-4 md:space-y-6 md:pr-4 relative z-10">
-        <header class="p-5 rounded-lg shadow-lg bg-[#513873] text-[#C6B4D9]">
-            <h1 class="text-2xl md:text-4xl font-bold text-center border-2 border-[#C6B4D9] rounded py-2 leading-tight">
-                COERCIVE<br>CONTROL
-            </h1>
-        </header>
+    <!-- LEFT PANEL: Header & Intro -->
+    <section class="flex-none md:w-1/3 lg:w-1/4 flex flex-col justify-center md:pr-4 relative z-10">
+        <!-- Wrapper Div matches grid height (65%) to align Header with top of tiles -->
+        <div class="flex flex-col w-full md:h-[65%]">
+            
+            <header class="flex-none p-5 mb-4 rounded-lg shadow-lg bg-[#513873] text-[#C6B4D9]">
+                <h1 class="text-2xl md:text-4xl font-bold text-center border-2 border-[#C6B4D9] rounded py-2 leading-tight">
+                    COERCIVE<br>CONTROL
+                </h1>
+            </header>
 
-        <div class="space-y-4 text-center md:text-left overflow-y-auto max-h-[40vh] md:max-h-full flex flex-col justify-center h-full">
-            <p class="text-sm md:text-base font-bold text-[#513873]">
-                Not a distinct form of violence, but an underpinning dynamic.
-            </p>
-            <p class="text-xs md:text-sm">
-                A <span class="font-bold">pattern of behaviours</span> used to control, manipulate and dominate.
-            </p>
-            
-            <div class="bg-white p-3 rounded border-l-4 border-[#9C7F9D] shadow-sm mt-2">
-                <p class="text-xs md:text-sm leading-relaxed">
-                    These tactics instill <span class="font-bold text-[#513873]">fear</span>, wear down <span class="font-bold text-[#513873]">identity</span>, and disable access to <span class="font-bold text-[#513873]">safety</span>.
+            <div class="flex-1 space-y-4 text-center md:text-left overflow-y-auto no-scrollbar flex flex-col">
+                <p class="text-sm md:text-base font-bold text-[#513873]">
+                    Not a distinct form of violence, but an underpinning dynamic.
                 </p>
-            </div>
-            
-            <!-- Instructions Section -->
-            <div class="mt-4 flex items-center justify-center md:justify-start space-x-2 text-[#513873]">
-                <div class="animate-pulse-arrow bg-[#C6B4D9] rounded-full p-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#513873]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
+                <p class="text-xs md:text-sm">
+                    A <span class="font-bold">pattern of behaviours</span> used to control, manipulate and dominate.
+                </p>
+                
+                <div class="bg-white p-3 rounded border-l-4 border-[#9C7F9D] shadow-sm mt-2">
+                    <p class="text-xs md:text-sm leading-relaxed">
+                        These tactics instill <span class="font-bold text-[#513873]">fear</span>, wear down <span class="font-bold text-[#513873]">identity</span>, and disable access to <span class="font-bold text-[#513873]">safety</span>.
+                    </p>
                 </div>
-                <p class="text-lg font-bold uppercase tracking-wider">
-                    Select a tile to flip
-                </p>
+                
+                <!-- Instructions Section -->
+                <div class="mt-auto pt-4 flex items-center justify-center md:justify-start space-x-2 text-[#513873]">
+                    <div class="animate-pulse-arrow bg-[#C6B4D9] rounded-full p-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#513873]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </div>
+                    <p class="text-lg font-bold uppercase tracking-wider">
+                        Select a tile to flip
+                    </p>
+                </div>
             </div>
+
         </div>
     </section>
 
-    <!-- RIGHT PANEL: The Grid (Fills remaining space) -->
-    <section class="flex-1 h-full perspective-container">
-        <div class="grid grid-cols-2 md:grid-cols-3 grid-rows-3 md:grid-rows-2 gap-4 h-full">
+    <!-- RIGHT PANEL: The Grid -->
+    <section class="flex-1 h-full perspective-container flex flex-col justify-center">
+        <!-- Grid Height Increased to 65% -->
+        <div class="grid grid-cols-2 md:grid-cols-3 grid-rows-3 md:grid-rows-2 gap-4 h-[65%] w-full">
 
             <!-- 1. Physical Violence -->
             <div class="flip-card cursor-pointer group" onclick="toggleFlip(this)">
